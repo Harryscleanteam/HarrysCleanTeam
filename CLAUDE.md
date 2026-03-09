@@ -12,7 +12,11 @@ A brocure website for a professional cleaning company
 
 ## Project Structure
 
+All website files live in the `HCTwebsite/` subdirectory. Always place HTML, CSS, JS, and any other website assets there.
+
 ```
-index.html    — Main page
-style.css     — Styling and animations
+HCTwebsite/
+  index.html    — Main page
+  style.css     — Styling and animations
+  script.js     — Interactive behaviour
 ```
