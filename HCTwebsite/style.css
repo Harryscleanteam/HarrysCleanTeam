@@ -164,6 +164,7 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
   width: auto;
   display: block;
   margin-bottom: .5rem;
+  align-self: flex-start;
 }
 
 .nav__links {
