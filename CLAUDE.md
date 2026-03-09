@@ -19,7 +19,12 @@ HCTwebsite/
   index.html    — Main page
   style.css     — Styling and animations
   script.js     — Interactive behaviour
+  Logo.png      — Company logo (used in nav and footer)
 ```
+
+## Assets
+
+- **Logo:** `HCTwebsite/Logo.png` — The official company logo. Use this image wherever the company logo is displayed (navigation bar, footer, etc.).
 
 ## Contact Details
 
