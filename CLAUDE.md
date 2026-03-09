@@ -24,6 +24,6 @@ HCTwebsite/
 ## Service Area
 
 The company services the following areas:
-- Castlemain
+- Castlemaine
 - Melbourne
 - Daylesford
