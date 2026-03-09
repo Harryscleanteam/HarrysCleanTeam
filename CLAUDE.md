@@ -29,6 +29,7 @@ HCTwebsite/
 ## Contact Details
 
 - **Phone:** 1300 643 229
+- **LinkedIn:** https://www.linkedin.com/company/harrys-clean-team/
 
 ## Service Area
 
