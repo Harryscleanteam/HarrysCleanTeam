@@ -21,6 +21,10 @@ HCTwebsite/
   script.js     — Interactive behaviour
 ```
 
+## Contact Details
+
+- **Phone:** 1300 643 229
+
 ## Service Area
 
 The company services the following areas:
