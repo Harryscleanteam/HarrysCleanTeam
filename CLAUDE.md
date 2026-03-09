@@ -20,3 +20,10 @@ HCTwebsite/
   style.css     — Styling and animations
   script.js     — Interactive behaviour
 ```
+
+## Service Area
+
+The company services the following areas:
+- Castlemaine
+- Melbourne
+- Daylesford
