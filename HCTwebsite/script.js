@@ -45,31 +45,11 @@ revealEls.forEach(el => observer.observe(el));
 // ---------- Contact form ----------
 const form = document.getElementById('contactForm');
 
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-
-  const name  = form.querySelector('#name').value.trim();
-  const email = form.querySelector('#email').value.trim();
-
-  if (!name || !email) {
-    alert('Please fill in your name and email address.');
-    return;
-  }
-
-  const btn = form.querySelector('button[type="submit"]');
-  btn.textContent = 'Sending…';
-  btn.disabled = true;
-
-  // Simulate async submission
-  setTimeout(() => {
-    btn.textContent = 'Request Sent!';
-    btn.style.background = 'var(--teal)';
-    form.reset();
-
-    setTimeout(() => {
-      btn.textContent = 'Send My Request';
-      btn.style.background = '';
-      btn.disabled = false;
-    }, 3500);
-  }, 1200);
+form.addEventListener('submit', () => {
+  const service = form.querySelector('#service').value;
+  const message = form.querySelector('#message').value.trim();
+  const parts = [];
+  if (service) parts.push('Service: ' + service);
+  if (message) parts.push(message);
+  form.querySelector('#noteField').value = parts.join('\n\n');
 });

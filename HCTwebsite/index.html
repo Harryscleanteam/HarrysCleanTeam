@@ -229,20 +229,29 @@
             </div>
           </div>
         </div>
-        <form class="contact__form" id="contactForm" novalidate>
+        <form class="contact__form" id="contactForm" action="https://service.capsulecrm.com/service/newlead" method="post">
+          <input type="hidden" name="FORM_ID" value="YOUR_CAPSULE_FORM_KEY" />
+          <input type="hidden" name="COMPLETE_URL" value="https://harryscleanteam.com.au" />
+          <input type="hidden" name="NOTE" id="noteField" />
           <div class="form-row">
             <div class="form-group">
-              <label for="name">Full Name</label>
-              <input type="text" id="name" name="name" placeholder="Jane Smith" required />
+              <label for="firstName">First Name</label>
+              <input type="text" id="firstName" name="FIRST_NAME" placeholder="Jane" required />
             </div>
             <div class="form-group">
-              <label for="phone">Phone Number</label>
-              <input type="tel" id="phone" name="phone" placeholder="04XX XXX XXX" />
+              <label for="lastName">Last Name</label>
+              <input type="text" id="lastName" name="LAST_NAME" placeholder="Smith" required />
             </div>
           </div>
-          <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" placeholder="jane@example.com" required />
+          <div class="form-row">
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="PHONE" placeholder="04XX XXX XXX" />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="EMAIL" placeholder="jane@example.com" required />
+            </div>
           </div>
           <div class="form-group">
             <label for="service">Service Needed</label>
