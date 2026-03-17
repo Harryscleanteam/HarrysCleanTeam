@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Short-Term Rental Cleaning — Harry's Clean Team</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ---- Page-specific overrides ---- */
+
+    /* Property type cards */
+    .property-types {
+      padding: 6rem 0;
+      background: var(--surface);
+    }
+
+    .property-types__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .property-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+    }
+
+    .property-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--blue);
+    }
+
+    .property-card__icon {
+      font-size: 2.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .property-card h3 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: .4rem;
+    }
+
+    .property-card__subtitle {
+      font-size: .8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--teal);
+      margin-bottom: .75rem;
+    }
+
+    .property-card p {
+      font-size: .88rem;
+      color: var(--muted);
+      line-height: 1.55;
+      margin-bottom: 1rem;
+    }
+
+    .property-card ul {
+      display: flex;
+      flex-direction: column;
+      gap: .4rem;
+    }
+
+    .property-card ul li {
+      font-size: .84rem;
+      color: var(--muted);
+      padding-left: 1.2rem;
+      position: relative;
+    }
+
+    .property-card ul li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--teal);
+      font-weight: 700;
+    }
+
+    /* STR Process section */
+    .str-process {
+      padding: 6rem 0;
+      background: var(--white);
+    }
+
+    .str-process__steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      counter-reset: steps;
+    }
+
+    .process-step {
+      text-align: center;
+      position: relative;
+    }
+
+    .process-step::after {
+      content: '';
+      position: absolute;
+      top: 2rem;
+      right: -1rem;
+      width: calc(100% - 4rem);
+      height: 2px;
+      background: var(--border);
+      z-index: 0;
+    }
+
+    .process-step:last-child::after { display: none; }
+
+    .process-step__num {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue) 0%, var(--teal) 100%);
+      color: var(--white);
+      font-size: 1.1rem;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .process-step h4 {
+      font-size: .95rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: .4rem;
+    }
+
+    .process-step p {
+      font-size: .83rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* STR hero variant */
+    .hero--str {
+      background: linear-gradient(135deg, #0a2e52 0%, #1a6fb5 45%, #0da89e 100%);
+    }
+
+    /* Checklist section */
+    .str-checklist {
+      padding: 6rem 0;
+      background: linear-gradient(135deg, #0d3a6e 0%, #1a6fb5 100%);
+    }
+
+    .str-checklist .section-eyebrow { color: var(--accent); }
+    .str-checklist .section-title   { color: var(--white); }
+
+    .checklist__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    .checklist-block {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: var(--radius);
+      padding: 2rem;
+    }
+
+    .checklist-block h4 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .checklist-block ul {
+      display: flex;
+      flex-direction: column;
+      gap: .55rem;
+    }
+
+    .checklist-block ul li {
+      font-size: .88rem;
+      color: rgba(255,255,255,.82);
+      padding-left: 1.4rem;
+      position: relative;
+      line-height: 1.45;
+    }
+
+    .checklist-block ul li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .property-types__grid { grid-template-columns: repeat(2, 1fr); }
+      .str-process__steps   { grid-template-columns: repeat(2, 1fr); }
+      .str-process__steps .process-step::after { display: none; }
+      .checklist__grid      { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 700px) {
+      .property-types__grid { grid-template-columns: 1fr; }
+      .str-process__steps   { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav" id="nav">
+    <div class="nav__inner container">
+      <a href="index.html" class="nav__logo">
+        <img src="Logo.png" alt="Harry's Clean Team" class="nav__logo-img" />
+      </a>
+      <nav class="nav__links">
+        <a href="index.html">Home</a>
+        <a href="#property-types">Property Types</a>
+        <a href="#str-process">Our Process</a>
+        <a href="#contact" class="btn btn--nav">Get a Quote</a>
+      </nav>
+      <button class="nav__burger" id="burger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav__mobile" id="mobileMenu">
+      <a href="index.html">Home</a>
+      <a href="#property-types">Property Types</a>
+      <a href="#str-process">Our Process</a>
+      <a href="#contact">Get a Quote</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero hero--str" id="hero">
+    <div class="hero__bg"></div>
+    <div class="hero__content container">
+      <p class="hero__eyebrow">Short-Term Rental Specialists</p>
+      <h1 class="hero__title">Guest-Ready Cleans<br><span>Every Time</span></h1>
+      <p class="hero__subtitle">From city penthouses to remote tiny homes, Harry's Clean Team delivers 5-star turnovers so your guests check in to perfection — every single stay.</p>
+      <div class="hero__actions">
+        <a href="#contact" class="btn btn--primary">Book a Turnover Clean</a>
+        <a href="#property-types" class="btn btn--ghost">See Property Types</a>
+      </div>
+      <div class="hero__stats">
+        <div class="hero__stat">
+          <strong>500+</strong>
+          <span>STR Cleans Done</span>
+        </div>
+        <div class="hero__stat-divider"></div>
+        <div class="hero__stat">
+          <strong>5★</strong>
+          <span>Guest Reviews</span>
+        </div>
+        <div class="hero__stat-divider"></div>
+        <div class="hero__stat">
+          <strong>8 yrs</strong>
+          <span>Experience</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero__scroll-hint" aria-hidden="true">
+      <span></span>
+    </div>
+  </section>
+
+  <!-- PROPERTY TYPES -->
+  <section class="property-types" id="property-types">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-eyebrow">Every Property, Every Setting</p>
+        <h2 class="section-title">We Clean Them All —<br>No Matter the Size or Location</h2>
+      </div>
+      <div class="property-types__grid">
+
+        <article class="property-card">
+          <div class="property-card__icon">🏙️</div>
+          <h3>Penthouse &amp; Luxury Apartments</h3>
+          <p class="property-card__subtitle">City &amp; Urban</p>
+          <p>High-end city apartments demand flawless presentation. We treat every surface with the care and precision that luxury guests expect, from floor-to-ceiling windows to designer kitchens.</p>
+          <ul>
+            <li>Premium linen changeover &amp; presentation</li>
+            <li>Streak-free glass &amp; mirror polishing</li>
+            <li>High-touch surface sanitisation</li>
+            <li>Discreet, professional team</li>
+          </ul>
+        </article>
+
+        <article class="property-card">
+          <div class="property-card__icon">🏖️</div>
+          <h3>Beach Houses &amp; Coastal Retreats</h3>
+          <p class="property-card__subtitle">Coastal</p>
+          <p>Coastal properties face unique challenges — sand, salt air, and sunscreen. We manage it all so your beach house stays in pristine condition for every guest arrival.</p>
+          <ul>
+            <li>Thorough sand removal from all rooms</li>
+            <li>Outdoor furniture &amp; deck cleaning</li>
+            <li>Salt residue treatment on surfaces</li>
+            <li>Shower &amp; bathroom deep cleans</li>
+          </ul>
+        </article>
+
+        <article class="property-card">
+          <div class="property-card__icon">🌿</div>
+          <h3>Country Cottages &amp; Rural Retreats</h3>
+          <p class="property-card__subtitle">Rural Victoria</p>
+          <p>Charming cottages and country properties have character that deserves careful attention. We respect the unique features — fireplaces, timber floors, exposed beams — while delivering a spotless result.</p>
+          <ul>
+            <li>Fireplace &amp; wood heater cleaning</li>
+            <li>Timber floor &amp; surface care</li>
+            <li>Garden-side entry mud management</li>
+            <li>Eco-friendly products for sensitive spaces</li>
+          </ul>
+        </article>
+
+        <article class="property-card">
+          <div class="property-card__icon">🌲</div>
+          <h3>Bushland Cabins &amp; Retreats</h3>
+          <p class="property-card__subtitle">Bush &amp; Forest</p>
+          <p>Properties set among the trees attract guests who love nature — but also expect comfort. We handle the bush debris, insects, and outdoor wear so your cabin feels welcoming the moment guests walk in.</p>
+          <ul>
+            <li>Leaf litter &amp; bush debris removal</li>
+            <li>Insect &amp; cobweb clearance</li>
+            <li>Deck &amp; verandah sweeping</li>
+            <li>Pet-friendly &amp; eco-safe products</li>
+          </ul>
+        </article>
+
+        <article class="property-card">
+          <div class="property-card__icon">🏡</div>
+          <h3>Rural Farmhouses &amp; Homesteads</h3>
+          <p class="property-card__subtitle">Farmstay &amp; Agritourism</p>
+          <p>Farmstay and agritourism properties are in high demand. Larger floor plans, working kitchens, and outdoor entertaining areas all need careful, thorough attention between guest stays.</p>
+          <ul>
+            <li>Large open-plan &amp; multiple room cleans</li>
+            <li>Farm-entry mudroom &amp; boot zones</li>
+            <li>Outdoor BBQ &amp; entertaining areas</li>
+            <li>Pantry &amp; country kitchen deep cleans</li>
+          </ul>
+        </article>
+
+        <article class="property-card">
+          <div class="property-card__icon">🏕️</div>
+          <h3>Tiny Homes &amp; Compact Dwellings</h3>
+          <p class="property-card__subtitle">Tiny Home &amp; Off-Grid</p>
+          <p>Tiny homes pack a lot into a small footprint — and that means every centimetre counts. We work efficiently within compact spaces, ensuring every multi-purpose area is spotless and guest-ready.</p>
+          <ul>
+            <li>Space-efficient, methodical cleaning</li>
+            <li>Convertible &amp; multi-use furniture care</li>
+            <li>Compact kitchen &amp; wet area detail</li>
+            <li>Linen fresh &amp; neatly arranged</li>
+          </ul>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- OUR PROCESS -->
+  <section class="str-process" id="str-process">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-eyebrow">How It Works</p>
+        <h2 class="section-title">A Seamless Turnover,<br>Every Time</h2>
+      </div>
+      <div class="str-process__steps">
+        <div class="process-step">
+          <div class="process-step__num">1</div>
+          <h4>You Book</h4>
+          <p>Schedule your turnover clean online, by phone, or text. We sync with your booking calendar so nothing falls through the cracks.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-step__num">2</div>
+          <h4>We Arrive &amp; Assess</h4>
+          <p>Our team arrives promptly after checkout, checks the property condition, and follows your bespoke checklist tailored to your property type.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-step__num">3</div>
+          <h4>Full Turnover Clean</h4>
+          <p>We clean, sanitise, replace linen, restock essentials, and stage the property so it photographs beautifully and impresses every guest.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-step__num">4</div>
+          <h4>Ready for Check-In</h4>
+          <p>You receive confirmation when we're done. Your property is guest-ready and your next 5-star review is already on its way.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHECKLIST -->
+  <section class="str-checklist" id="checklist">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-eyebrow">What's Included</p>
+        <h2 class="section-title">Our Standard STR Checklist</h2>
+      </div>
+      <div class="checklist__grid">
+        <div class="checklist-block">
+          <h4>🛏️ Bedrooms &amp; Living Areas</h4>
+          <ul>
+            <li>Strip and remake all beds with fresh linen</li>
+            <li>Dust all surfaces, shelves, and skirting boards</li>
+            <li>Vacuum carpets and mop hard floors</li>
+            <li>Clean mirrors and glass surfaces streak-free</li>
+            <li>Empty bins and replace bin liners</li>
+            <li>Arrange cushions, throws, and décor presentation</li>
+          </ul>
+        </div>
+        <div class="checklist-block">
+          <h4>🍳 Kitchen</h4>
+          <ul>
+            <li>Clean and sanitise all benchtops</li>
+            <li>Clean stovetop, oven exterior, and rangehood</li>
+            <li>Wipe appliances inside and out</li>
+            <li>Clean and empty fridge of any guest leftovers</li>
+            <li>Wash, dry, and replace all dishes</li>
+            <li>Restock consumables to agreed levels</li>
+          </ul>
+        </div>
+        <div class="checklist-block">
+          <h4>🚿 Bathrooms &amp; Laundry</h4>
+          <ul>
+            <li>Scrub and sanitise toilets, showers, and baths</li>
+            <li>Clean vanity, taps, and mirrors</li>
+            <li>Replace towels with fresh, folded sets</li>
+            <li>Restock soap, shampoo, and toiletries</li>
+            <li>Mop floors and clean laundry area</li>
+            <li>Remove hair and guest residue from all drains</li>
+          </ul>
+        </div>
+        <div class="checklist-block">
+          <h4>🌿 Outdoor &amp; Entry Areas</h4>
+          <ul>
+            <li>Sweep verandahs, decks, and entry paths</li>
+            <li>Wipe down outdoor furniture</li>
+            <li>Clean BBQ grill and surrounding area</li>
+            <li>Remove leaf litter and visible debris</li>
+            <li>Check and tidy mudroom or boot entry</li>
+            <li>Final walkthrough quality check before departure</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="why-us" id="why-us">
+    <div class="container">
+      <div class="why-us__inner">
+        <div class="why-us__text">
+          <p class="section-eyebrow">Why Harry's Clean Team</p>
+          <h2 class="section-title">STR Cleaning Is<br>Our Speciality</h2>
+          <p class="why-us__body">We understand that short-term rental hosting is a business — your reviews, your income, and your reputation depend on the quality of each turnover. We treat every property as if it were our own investment and every clean as if a mystery reviewer is arriving next.</p>
+          <a href="#contact" class="btn btn--primary">Get a Free Quote</a>
+        </div>
+        <div class="why-us__features">
+          <div class="feature">
+            <div class="feature__icon">📋</div>
+            <div>
+              <h4>Bespoke Checklists</h4>
+              <p>We build a custom checklist for your property — not a generic one-size-fits-all approach.</p>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feature__icon">⏰</div>
+            <div>
+              <h4>Tight Turnaround Times</h4>
+              <p>Same-day turnovers handled professionally. We respect your check-in window.</p>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feature__icon">🛏️</div>
+            <div>
+              <h4>Premium Linen Service</h4>
+              <p>Hotel-quality linen changeovers that make every guest feel they're somewhere special.</p>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feature__icon">🛡️</div>
+            <div>
+              <h4>Fully Insured Team</h4>
+              <p>Every team member is background-checked, trained, and fully insured for your peace of mind.</p>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feature__icon">📍</div>
+            <div>
+              <h4>Regional Specialists</h4>
+              <p>We cover Castlemaine, Melbourne, and Daylesford — including rural and hard-to-reach properties.</p>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feature__icon">🌟</div>
+            <div>
+              <h4>5-Star Consistent Quality</h4>
+              <p>The same high standard every visit. Your guests will notice — and so will your reviews.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-eyebrow">Host Reviews</p>
+        <h2 class="section-title">What Hosts Are Saying</h2>
+      </div>
+      <div class="testimonials__grid">
+
+        <blockquote class="testimonial">
+          <div class="testimonial__stars">★★★★★</div>
+          <p>"Harry's Clean Team has been managing turnovers at our Daylesford cottage for over a year. My guests consistently mention how spotless it is. My booking rate has never been better."</p>
+          <footer>
+            <strong>Rebecca T.</strong>
+            <span>Airbnb Host, Daylesford</span>
+          </footer>
+        </blockquote>
+
+        <blockquote class="testimonial">
+          <div class="testimonial__stars">★★★★★</div>
+          <p>"We have a tiny home on five acres and finding a cleaner who could handle the rural access and compact space was a challenge — until we found Harry's. They're absolutely brilliant."</p>
+          <footer>
+            <strong>Marcus &amp; Jo W.</strong>
+            <span>STR Hosts, Castlemaine</span>
+          </footer>
+        </blockquote>
+
+        <blockquote class="testimonial">
+          <div class="testimonial__stars">★★★★★</div>
+          <p>"My Melbourne apartment is booked back-to-back and Harry's never miss a beat. Same-day turnovers, perfect linen presentation, and guests always check in to a 5-star clean."</p>
+          <footer>
+            <strong>Diane S.</strong>
+            <span>Property Investor, Melbourne</span>
+          </footer>
+        </blockquote>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT / CTA -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="contact__inner">
+        <div class="contact__text">
+          <p class="section-eyebrow">Get in Touch</p>
+          <h2 class="section-title">Let's Get Your Property Guest-Ready</h2>
+          <p>Tell us about your rental property and we'll put together a tailored cleaning plan. No lock-in contracts — just reliable, consistent cleans your guests will rave about.</p>
+          <div class="contact__details">
+            <a href="tel:+611300643229" class="contact__detail">
+              <span>📞</span> 1300 643 229
+            </a>
+            <a href="mailto:hello@harryscleanteam.com.au" class="contact__detail">
+              <span>✉️</span> hello@harryscleanteam.com.au
+            </a>
+            <div class="contact__detail">
+              <span>📍</span> Serving Castlemaine, Melbourne and Daylesford
+            </div>
+          </div>
+        </div>
+        <form class="contact__form" id="contactForm" action="https://service.capsulecrm.com/service/newlead" method="post">
+          <input type="hidden" name="FORM_ID" value="YOUR_CAPSULE_FORM_KEY" />
+          <input type="hidden" name="COMPLETE_URL" value="https://harryscleanteam.com.au" />
+          <input type="hidden" name="NOTE" id="noteField" />
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input type="text" id="firstName" name="FIRST_NAME" placeholder="Jane" required />
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input type="text" id="lastName" name="LAST_NAME" placeholder="Smith" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="PHONE" placeholder="04XX XXX XXX" />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="EMAIL" placeholder="jane@example.com" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="service">Property Type</label>
+            <select id="service" name="service">
+              <option value="">Select your property type…</option>
+              <option>Penthouse / Luxury Apartment</option>
+              <option>Beach House / Coastal Property</option>
+              <option>Country Cottage / Rural Retreat</option>
+              <option>Bushland Cabin</option>
+              <option>Rural Farmhouse / Homestead</option>
+              <option>Tiny Home</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">About Your Property</label>
+            <textarea id="message" name="message" rows="4" placeholder="Tell us about your rental — location, size, how many bedrooms, how often you need a turnover clean…"></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary btn--full">Send My Request</button>
+          <p class="form-note">We'll respond within 24 hours. No spam, ever.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <img src="Logo.png" alt="Harry's Clean Team" class="footer__logo-img" />
+        <strong>Harry's Clean Team</strong>
+        <p>Professional cleaning services across Castlemaine, Melbourne and Daylesford.</p>
+        <div class="footer__social">
+          <a href="https://www.linkedin.com/company/harrys-clean-team/" target="_blank" rel="noopener noreferrer" class="footer__social-link" aria-label="Harry's Clean Team on LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer__links">
+        <h5>Property Types</h5>
+        <a href="#property-types">Penthouse &amp; Apartments</a>
+        <a href="#property-types">Beach Houses</a>
+        <a href="#property-types">Country Cottages</a>
+        <a href="#property-types">Bushland Cabins</a>
+        <a href="#property-types">Tiny Homes</a>
+      </div>
+      <div class="footer__links">
+        <h5>Company</h5>
+        <a href="index.html">Home</a>
+        <a href="#why-us">About Us</a>
+        <a href="#testimonials">Reviews</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+    <div class="footer__bottom container">
+      <p>&copy; 2026 Harry's Clean Team. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
