@@ -711,6 +711,14 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 
 .form-group textarea { resize: vertical; min-height: 100px; }
 
+/* Responsive iframe inside contact form wrapper */
+.contact__form iframe {
+  display: block;
+  width: 100%;
+  max-width: 640px;
+  border: none;
+}
+
 .form-note {
   text-align: center;
   font-size: .78rem;
