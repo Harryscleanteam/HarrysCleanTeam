@@ -1,24 +1,24 @@
 /* ============================================================
-   HARRY'S CLEAN TEAM â Brochure Website Styles
+   HARRY'S CLEAN TEAM Ã¢ÂÂ Brochure Website Styles
    ============================================================ */
 
 /* ---------- Custom Properties ---------- */
 :root {
-  --blue:       #D4511A;
-  --blue-dark:  #B33D10;
-  --blue-light: #FFF2EC;
-  --teal:       #0da89e;
-  --accent:     #f0c040;
-  --text:       #1c1c2e;
-  --muted:      #5a5a74;
-  --surface:    #f7f9fc;
+  --blue:       #E05C3A;
+  --blue-dark:  #C94829;
+  --blue-light: #FEF0EC;
+  --teal:       #E05C3A;
+  --accent:     #F5A623;
+  --text:       #1A1410;
+  --muted:      #6B5D54;
+  --surface:    #FAF8F6;
   --white:      #ffffff;
-  --border:     #e0e8f0;
+  --border:     #EAE2D8;
   --radius:     14px;
   --radius-sm:  8px;
-  --shadow-sm:  0 2px 8px rgba(212,81,26,.08);
-  --shadow-md:  0 8px 32px rgba(212,81,26,.13);
-  --shadow-lg:  0 20px 60px rgba(212,81,26,.18);
+  --shadow-sm:  0 2px 8px rgba(224,92,58,.08);
+  --shadow-md:  0 8px 32px rgba(224,92,58,.13);
+  --shadow-lg:  0 20px 60px rgba(224,92,58,.18);
   --transition: .25s cubic-bezier(.4,0,.2,1);
   --font:       'Segoe UI', system-ui, -apple-system, sans-serif;
   --container:  1160px;
@@ -91,9 +91,9 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 .btn--primary {
   background: var(--blue);
   color: var(--white);
-  box-shadow: 0 4px 18px rgba(212,81,26,.35);
+  box-shadow: 0 4px 18px rgba(224,92,58,.35);
 }
-.btn--primary:hover { background: var(--blue-dark); box-shadow: 0 6px 24px rgba(212,81,26,.45); }
+.btn--primary:hover { background: var(--blue-dark); box-shadow: 0 6px 24px rgba(224,92,58,.45); }
 
 .btn--ghost {
   background: transparent;
@@ -234,7 +234,7 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 80% 60% at 70% 40%, rgba(212,81,26,.2) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 60% at 70% 40%, rgba(224,92,58,.2) 0%, transparent 60%),
     radial-gradient(ellipse 50% 80% at 20% 80%, rgba(255,255,255,.05) 0%, transparent 60%);
   pointer-events: none;
 }
@@ -408,7 +408,7 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, var(--blue) 0%, var(--teal) 100%);
+  background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
   opacity: 0;
   transition: opacity var(--transition);
   z-index: 0;
@@ -474,7 +474,7 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 }
 
 .service-card ul li::before {
-  content: 'â';
+  content: '\2713';
   position: absolute;
   left: 0;
   color: var(--teal);
@@ -706,7 +706,7 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 .form-group select:focus,
 .form-group textarea:focus {
   border-color: var(--blue);
-  box-shadow: 0 0 0 3px rgba(212,81,26,.12);
+  box-shadow: 0 0 0 3px rgba(224,92,58,.12);
 }
 
 .form-group textarea { resize: vertical; min-height: 100px; }
